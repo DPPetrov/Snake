@@ -39,6 +39,10 @@ public class GamePanel extends JPanel implements ActionListener {
 
     private void startGame() {
 
+        newMouse();
+        moving = true;
+        timer = new Timer(DELAY, this);
+        timer.start();
     }
 
     public void paintComponent(Graphics g) {
