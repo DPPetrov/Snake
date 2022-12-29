@@ -55,6 +55,17 @@ public class GamePanel extends JPanel implements ActionListener {
         graphics.setColor(Color.green);
         graphics.fillOval(mouseCoordinateX, mouseCoorinateY, UNIT_SIZE, UNIT_SIZE);
 
+        for (int i = 0; i < bodyParts; i++) {
+
+            if (i == 0) {
+                graphics.setColor(Color.green);
+                graphics.fillRect(snakeX[i], snakeY[i], UNIT_SIZE, UNIT_SIZE);
+            }else {
+                graphics.setColor(new Color(45, 180, 0));
+                graphics.fillRect(snakeX[i], snakeY[i], UNIT_SIZE, UNIT_SIZE);
+            }
+        }
+
     }
 
     private void newMouse() {
@@ -70,9 +81,9 @@ public class GamePanel extends JPanel implements ActionListener {
             snakeX[i] = snakeX[i - 1];
             snakeY[i] = snakeX[i - 1];
 
-             }
+        }
 
-        switch (direction){
+        switch (direction) {
 
             case 'U':
                 snakeY[0] = snakeY[0] - UNIT_SIZE;
@@ -110,6 +121,13 @@ public class GamePanel extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
+        if (moving){
+            move();
+            checkForMouse();
+            checkForCollisions();
+        }else{
+            repaint();
+        }
     }
 
     protected class MyKeyAdapter extends KeyAdapter implements snake.MyKeyAdapter {
