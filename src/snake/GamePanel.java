@@ -8,16 +8,16 @@ import java.util.Random;
 
 public class GamePanel extends JPanel implements ActionListener {
 
-    static final int SCREEN_WIDTH = 600;
-    static final int SCREEN_HEIGHT = 600;
-    static final int UNIT_SIZE = 25;
-    static final int GAME_UNITS = (SCREEN_WIDTH * SCREEN_HEIGHT) / UNIT_SIZE;
-    static final int DELAY = 75;
+    private static final int SCREEN_WIDTH = 600;
+    private static final int SCREEN_HEIGHT = 600;
+    private static final int UNIT_SIZE = 25;
+    private static final int GAME_UNITS = (SCREEN_WIDTH * SCREEN_HEIGHT) / UNIT_SIZE;
+    private static final int DELAY = 75;
 
-    final int x[] = new int[GAME_UNITS];
-    final int y[] = new int[GAME_UNITS];
+    private final int x[] = new int[GAME_UNITS];
+    private final int y[] = new int[GAME_UNITS];
 
-    int bodyPArts = 6;
+    int bodyParts = 6;
     int applesEaten = 0;
     int appleCoordinateX;
     int appleCoorinateY;
@@ -28,9 +28,16 @@ public class GamePanel extends JPanel implements ActionListener {
 
     GamePanel() {
 
+        random = new Random();
+        this.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
+        this.setBackground(Color.black);
+        this.setFocusable(true);
+        this.addKeyListener(new MyKeyAdapter());
+        startGame();
+
     }
 
-    public void startGame() {
+    private void startGame() {
 
     }
 
@@ -38,23 +45,27 @@ public class GamePanel extends JPanel implements ActionListener {
 
     }
 
-    public void draw(Graphics graphics) {
+    private void draw(Graphics graphics) {
 
     }
 
-    public void move() {
+    private void newMouse() {
 
     }
 
-    public void checkForMouse() {
+    protected void move() {
 
     }
 
-    public void checkForCollisions() {
+    private void checkForMouse() {
 
     }
 
-    public void gameOver(Graphics graphics) {
+    private void checkForCollisions() {
+
+    }
+
+    protected void gameOver(Graphics graphics) {
 
     }
 
@@ -64,7 +75,7 @@ public class GamePanel extends JPanel implements ActionListener {
 
     }
 
-    public class MyKeyAdapter extends KeyAdapter implements snake.MyKeyAdapter {
+    protected class MyKeyAdapter extends KeyAdapter implements snake.MyKeyAdapter {
 
         @Override
         public void KeyPressed(KeyEvent event) {
