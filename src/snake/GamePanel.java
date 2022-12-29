@@ -2,8 +2,10 @@ package snake;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
-import java.sql.Time;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.Random;
 
 public class GamePanel extends JPanel implements ActionListener {
@@ -22,7 +24,7 @@ public class GamePanel extends JPanel implements ActionListener {
     int mouseCoordinateX;
     int mouseCoorinateY;
     char direction = 'R';
-    boolean moving = false;
+    boolean isMoving = false;
     Timer timer;
     Random random;
 
@@ -37,10 +39,10 @@ public class GamePanel extends JPanel implements ActionListener {
 
     }
 
-    private void startGame() {
+    public void startGame() {
 
         newMouse();
-        moving = true;
+        isMoving = true;
         timer = new Timer(DELAY, this);
         timer.start();
     }
@@ -50,7 +52,7 @@ public class GamePanel extends JPanel implements ActionListener {
         draw(g);
     }
 
-    private void draw(Graphics graphics) {
+    public void draw(Graphics graphics) {
 
         graphics.setColor(Color.green);
         graphics.fillOval(mouseCoordinateX, mouseCoorinateY, UNIT_SIZE, UNIT_SIZE);
@@ -68,7 +70,7 @@ public class GamePanel extends JPanel implements ActionListener {
 
     }
 
-    private void newMouse() {
+    public void newMouse() {
 
         mouseCoordinateX = random.nextInt(SCREEN_WIDTH / UNIT_SIZE) * UNIT_SIZE;
         mouseCoorinateY = random.nextInt(SCREEN_HEIGHT / UNIT_SIZE) * UNIT_SIZE;
@@ -111,6 +113,35 @@ public class GamePanel extends JPanel implements ActionListener {
 
     private void checkForCollisions() {
 
+        //check if head collides with body
+        for (int i = bodyParts; i > 0 ; i--) {
+
+            if((snakeX[0] == snakeX[i]) && snakeY[0] == snakeY[i]){
+                isMoving = false;
+            }
+        }
+
+        // check if body collides with border
+        // move logic to separate method
+
+        if (snakeX[0] < 0){
+            isMoving = false;
+        }
+
+        if (snakeX[0] > SCREEN_WIDTH){
+            isMoving = false;
+        }
+
+        if (snakeY[0] < 0){
+            isMoving = false;
+        }
+        if (snakeY[0] > SCREEN_HEIGHT){
+            isMoving = false;
+        }
+
+        if (!isMoving){
+            timer.stop();
+        }
     }
 
     protected void gameOver(Graphics graphics) {
@@ -121,7 +152,7 @@ public class GamePanel extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        if (moving){
+        if (isMoving){
             move();
             checkForMouse();
             checkForCollisions();
