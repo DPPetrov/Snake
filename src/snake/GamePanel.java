@@ -86,22 +86,10 @@ public class GamePanel extends JPanel implements ActionListener {
         }
 
         switch (direction) {
-
-            case 'U':
-                snakeY[0] = snakeY[0] - UNIT_SIZE;
-                break;
-
-            case 'D':
-                snakeY[0] = snakeY[0] + UNIT_SIZE;
-                break;
-
-            case 'L':
-                snakeX[0] = snakeX[0] - UNIT_SIZE;
-                break;
-
-            case 'R':
-                snakeX[0] = snakeX[0] + UNIT_SIZE;
-                break;
+            case 'U' -> snakeY[0] = snakeY[0] - UNIT_SIZE;
+            case 'D' -> snakeY[0] = snakeY[0] + UNIT_SIZE;
+            case 'L' -> snakeX[0] = snakeX[0] - UNIT_SIZE;
+            case 'R' -> snakeX[0] = snakeX[0] + UNIT_SIZE;
         }
 
     }
@@ -113,92 +101,93 @@ public class GamePanel extends JPanel implements ActionListener {
 
     public void checkCollisions() {
         //checks if head collides with body
-        for(int i = bodyParts;i>0;i--) {
-            if((snakeX[0] == snakeX[i])&& (snakeY[0] == snakeY[i])) {
+        for (int i = bodyParts; i > 0; i--) {
+            if ((snakeX[0] == snakeX[i]) && (snakeY[0] == snakeY[i])) {
                 isMoving = false;
+                break;
             }
         }
         //check if head touches left border
-        if(snakeX[0] < 0) {
+        if (snakeX[0] < 0) {
             isMoving = false;
         }
         //check if head touches right border
-        if(snakeX[0] > SCREEN_WIDTH) {
+        if (snakeX[0] > SCREEN_WIDTH) {
             isMoving = false;
         }
         //check if head touches top border
-        if(snakeY[0] < 0) {
+        if (snakeY[0] < 0) {
             isMoving = false;
         }
         //check if head touches bottom border
-        if(snakeY[0] > SCREEN_HEIGHT) {
+        if (snakeY[0] > SCREEN_HEIGHT) {
             isMoving = false;
         }
 
-        if(!isMoving) {
+        if (!isMoving) {
             timer.stop();
         }
     }
 
-        public void gameOver (Graphics graphics){
+    public void gameOver(Graphics graphics) {
 
-            graphics.setColor(Color.red);
-            graphics.setFont(new Font("Ink Free", Font.BOLD, 40));
-            FontMetrics metrics1 = getFontMetrics(graphics.getFont());
-            graphics.drawString("Score: " + miceEaten, (SCREEN_WIDTH - metrics1.stringWidth("Score: " + miceEaten)) / 2, graphics.getFont().getSize());
-            //Game Over text
-            graphics.setColor(Color.red);
-            graphics.setFont(new Font("Ink Free", Font.BOLD, 75));
-            FontMetrics metrics2 = getFontMetrics(graphics.getFont());
-            graphics.drawString("Game Over", (SCREEN_WIDTH - metrics2.stringWidth("Game Over")) / 2, SCREEN_HEIGHT / 2);
-        }
-
-
-        @Override
-        public void actionPerformed (ActionEvent e){
-
-            if (isMoving) {
-                move();
-                checkForMouse();
-                checkCollisions();
-            } else {
-                repaint();
-            }
-        }
-
-        protected class MyKeyAdapter extends KeyAdapter implements snake.MyKeyAdapter {
-
-            @Override
-            public void KeyPressed(KeyEvent event) {
-
-                switch (event.getKeyCode()) {
-
-                    case KeyEvent.VK_LEFT:
-                        if (direction != 'R') {
-                            direction = 'L';
-                        }
-                        break;
-
-                    case KeyEvent.VK_RIGHT:
-                        if (direction != 'L') {
-                            direction = 'R';
-                        }
-                        break;
-
-                    case KeyEvent.VK_UP:
-                        if (direction != 'D') {
-                            direction = 'U';
-                        }
-                        break;
-
-                    case KeyEvent.VK_DOWN:
-                        if (direction != 'U') {
-                            direction = 'D';
-                        }
-                        break;
-                }
+        graphics.setColor(Color.red);
+        graphics.setFont(new Font("Ink Free", Font.BOLD, 40));
+        FontMetrics metrics1 = getFontMetrics(graphics.getFont());
+        graphics.drawString("Score: " + miceEaten, (SCREEN_WIDTH - metrics1.stringWidth("Score: " + miceEaten)) / 2, graphics.getFont().getSize());
+        //Game Over text
+        graphics.setColor(Color.red);
+        graphics.setFont(new Font("Ink Free", Font.BOLD, 75));
+        FontMetrics metrics2 = getFontMetrics(graphics.getFont());
+        graphics.drawString("Game Over", (SCREEN_WIDTH - metrics2.stringWidth("Game Over")) / 2, SCREEN_HEIGHT / 2);
+    }
 
 
-            }
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+        if (isMoving) {
+            move();
+            checkForMouse();
+            checkCollisions();
+        } else {
+            repaint();
         }
     }
+
+    protected class MyKeyAdapter extends KeyAdapter implements snake.MyKeyAdapter {
+
+        @Override
+        public void KeyPressed(KeyEvent event) {
+
+            switch (event.getKeyCode()) {
+
+                case KeyEvent.VK_LEFT:
+                    if (direction != 'R') {
+                        direction = 'L';
+                    }
+                    break;
+
+                case KeyEvent.VK_RIGHT:
+                    if (direction != 'L') {
+                        direction = 'R';
+                    }
+                    break;
+
+                case KeyEvent.VK_UP:
+                    if (direction != 'D') {
+                        direction = 'U';
+                    }
+                    break;
+
+                case KeyEvent.VK_DOWN:
+                    if (direction != 'U') {
+                        direction = 'D';
+                    }
+                    break;
+            }
+
+
+        }
+    }
+}
