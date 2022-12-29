@@ -52,6 +52,9 @@ public class GamePanel extends JPanel implements ActionListener {
 
     private void draw(Graphics graphics) {
 
+        graphics.setColor(Color.green);
+        graphics.fillOval(mouseCoordinateX, mouseCoorinateY, UNIT_SIZE, UNIT_SIZE);
+
     }
 
     private void newMouse() {
@@ -61,6 +64,32 @@ public class GamePanel extends JPanel implements ActionListener {
     }
 
     protected void move() {
+
+        for (int i = bodyParts; i > 0; i--) {
+
+            snakeX[i] = snakeX[i - 1];
+            snakeY[i] = snakeX[i - 1];
+
+             }
+
+        switch (direction){
+
+            case 'U':
+                snakeY[0] = snakeY[0] - UNIT_SIZE;
+                break;
+
+            case 'D':
+                snakeY[0] = snakeY[0] + UNIT_SIZE;
+                break;
+
+            case 'L':
+                snakeX[0] = snakeX[0] - UNIT_SIZE;
+                break;
+
+            case 'R':
+                snakeX[0] = snakeX[0] + UNIT_SIZE;
+                break;
+        }
 
     }
 
