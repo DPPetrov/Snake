@@ -14,13 +14,13 @@ public class GamePanel extends JPanel implements ActionListener {
     private static final int GAME_UNITS = (SCREEN_WIDTH * SCREEN_HEIGHT) / UNIT_SIZE;
     private static final int DELAY = 75;
 
-    private final int x[] = new int[GAME_UNITS];
-    private final int y[] = new int[GAME_UNITS];
+    private final int snakeX[] = new int[GAME_UNITS];
+    private final int snakeY[] = new int[GAME_UNITS];
 
     int bodyParts = 6;
-    int applesEaten = 0;
-    int appleCoordinateX;
-    int appleCoorinateY;
+    int miceEaten = 0;
+    int mouseCoordinateX;
+    int mouseCoorinateY;
     char direction = 'R';
     boolean moving = false;
     Timer timer;
@@ -46,7 +46,8 @@ public class GamePanel extends JPanel implements ActionListener {
     }
 
     public void paintComponent(Graphics g) {
-
+        super.paintComponent(g);
+        draw(g);
     }
 
     private void draw(Graphics graphics) {
@@ -55,6 +56,8 @@ public class GamePanel extends JPanel implements ActionListener {
 
     private void newMouse() {
 
+        mouseCoordinateX = random.nextInt(SCREEN_WIDTH / UNIT_SIZE) * UNIT_SIZE;
+        mouseCoorinateY = random.nextInt(SCREEN_HEIGHT / UNIT_SIZE) * UNIT_SIZE;
     }
 
     protected void move() {
@@ -62,6 +65,7 @@ public class GamePanel extends JPanel implements ActionListener {
     }
 
     private void checkForMouse() {
+
 
     }
 
