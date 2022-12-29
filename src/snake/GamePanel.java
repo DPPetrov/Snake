@@ -19,7 +19,7 @@ public class GamePanel extends JPanel implements ActionListener {
     int bodyParts = 6;
     int miceEaten = 0;
     int mouseCoordinateX;
-    int mouseCoordinates;
+    int mouseCoordinatesY;
     char direction = 'R';
     boolean isMoving = false;
     Timer timer;
@@ -53,7 +53,7 @@ public class GamePanel extends JPanel implements ActionListener {
 
         if (isMoving) {
             graphics.setColor(Color.green);
-            graphics.fillOval(mouseCoordinateX, mouseCoordinates, UNIT_SIZE, UNIT_SIZE);
+            graphics.fillOval(mouseCoordinateX, mouseCoordinatesY, UNIT_SIZE, UNIT_SIZE);
 
             for (int i = 0; i < bodyParts; i++) {
 
@@ -80,7 +80,7 @@ public class GamePanel extends JPanel implements ActionListener {
     public void newMouse() {
 
         mouseCoordinateX = random.nextInt(SCREEN_WIDTH / UNIT_SIZE) * UNIT_SIZE;
-        mouseCoordinates = random.nextInt(SCREEN_HEIGHT / UNIT_SIZE) * UNIT_SIZE;
+        mouseCoordinatesY = random.nextInt(SCREEN_HEIGHT / UNIT_SIZE) * UNIT_SIZE;
     }
 
     protected void move() {
@@ -88,7 +88,7 @@ public class GamePanel extends JPanel implements ActionListener {
         for (int i = bodyParts; i > 0; i--) {
 
             snakeX[i] = snakeX[i - 1];
-            snakeY[i] = snakeX[i - 1];
+            snakeY[i] = snakeY[i - 1];
 
         }
 
@@ -103,6 +103,11 @@ public class GamePanel extends JPanel implements ActionListener {
 
     public void checkForMouse() {
 
+        if((snakeX[0] == mouseCoordinateX) && (snakeY[0] == mouseCoordinatesY)) {
+            bodyParts++;
+            miceEaten++;
+            newMouse();
+        }
 
     }
 
