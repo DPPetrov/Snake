@@ -2,10 +2,7 @@ package snake;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+import java.awt.event.*;
 import java.util.Random;
 
 public class GamePanel extends JPanel implements ActionListener {
@@ -22,7 +19,7 @@ public class GamePanel extends JPanel implements ActionListener {
     int bodyParts = 6;
     int miceEaten = 0;
     int mouseCoordinateX;
-    int mouseCoorinateY;
+    int mouseCoordinates;
     char direction = 'R';
     boolean isMoving = false;
     Timer timer;
@@ -56,7 +53,7 @@ public class GamePanel extends JPanel implements ActionListener {
 
         if (isMoving) {
             graphics.setColor(Color.green);
-            graphics.fillOval(mouseCoordinateX, mouseCoorinateY, UNIT_SIZE, UNIT_SIZE);
+            graphics.fillOval(mouseCoordinateX, mouseCoordinates, UNIT_SIZE, UNIT_SIZE);
 
             for (int i = 0; i < bodyParts; i++) {
 
@@ -83,7 +80,7 @@ public class GamePanel extends JPanel implements ActionListener {
     public void newMouse() {
 
         mouseCoordinateX = random.nextInt(SCREEN_WIDTH / UNIT_SIZE) * UNIT_SIZE;
-        mouseCoorinateY = random.nextInt(SCREEN_HEIGHT / UNIT_SIZE) * UNIT_SIZE;
+        mouseCoordinates = random.nextInt(SCREEN_HEIGHT / UNIT_SIZE) * UNIT_SIZE;
     }
 
     protected void move() {
