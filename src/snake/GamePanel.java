@@ -54,21 +54,31 @@ public class GamePanel extends JPanel implements ActionListener {
 
     public void draw(Graphics graphics) {
 
-        graphics.setColor(Color.green);
-        graphics.fillOval(mouseCoordinateX, mouseCoorinateY, UNIT_SIZE, UNIT_SIZE);
+        if (isMoving) {
+            graphics.setColor(Color.green);
+            graphics.fillOval(mouseCoordinateX, mouseCoorinateY, UNIT_SIZE, UNIT_SIZE);
 
-        for (int i = 0; i < bodyParts; i++) {
+            for (int i = 0; i < bodyParts; i++) {
 
-            if (i == 0) {
-                graphics.setColor(Color.green);
-                graphics.fillRect(snakeX[i], snakeY[i], UNIT_SIZE, UNIT_SIZE);
-            } else {
-                graphics.setColor(new Color(45, 180, 0));
-                graphics.fillRect(snakeX[i], snakeY[i], UNIT_SIZE, UNIT_SIZE);
+                if (i == 0) {
+                    graphics.setColor(Color.green);
+                    graphics.fillRect(snakeX[i], snakeY[i], UNIT_SIZE, UNIT_SIZE);
+                } else {
+                    graphics.setColor(new Color(45, 180, 0));
+                    graphics.fillRect(snakeX[i], snakeY[i], UNIT_SIZE, UNIT_SIZE);
+                }
             }
-        }
 
+            graphics.setColor(Color.red);
+            graphics.setFont(new Font("Ink Free", Font.BOLD, 40));
+            FontMetrics metrics = getFontMetrics(graphics.getFont());
+            graphics.drawString("Score: " + miceEaten, (SCREEN_WIDTH - metrics.stringWidth("Score: " + miceEaten)) / 2, graphics.getFont().getSize());
+
+        }else{
+            gameOver(graphics);
+        }
     }
+
 
     public void newMouse() {
 
